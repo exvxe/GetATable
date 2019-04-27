@@ -4,11 +4,12 @@ import { Link } from 'react-router-dom'
 
 import ReservationSummary from './ReservationSummary'
 
-const ReservationList = ({reservations}) => {
+const ReservationList = ({reservations, auth}) => {
+    let filteredReservations = reservations != null ? reservations.filter(x => x.authorId == auth.uid) : '';
     return (
         <div className="reservation-list section">
             {
-                reservations && reservations.map(reservation => {
+                filteredReservations && filteredReservations.map(reservation => {
                     return (
                         <Link to={'/reservation/' + reservation.id} key={reservation.id}>
                             <ReservationSummary reservation={reservation}/>
