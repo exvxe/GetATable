@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import ReservationSummary from './ReservationSummary'
 
 const ReservationList = ({reservations, auth}) => {
-    let filteredReservations = reservations != null ? reservations.filter(x => x.authorId == auth.uid) : '';
+    let filteredReservations = reservations != null ? reservations.filter(x => x.authorId == auth.uid && x.canceled == false) : '';
     return (
         <div className="reservation-list section">
             {
