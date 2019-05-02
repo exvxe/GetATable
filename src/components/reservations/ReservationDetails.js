@@ -28,7 +28,7 @@ class ReservationDetails extends Component {
             </div>
             <div className="card-action">
               <NavLink to="/" className="red-text accent-3-text" onClick={() => this.cancelHandler()}><strong>Cancel your reservation</strong></NavLink>
-              <a href="#" className="amber-text accent-3-text">Change the date of reservation</a>
+              <NavLink to={"/edit/" + this.props.id} className="amber-text accent-3-text">Change the date of reservation</NavLink>
             </div>
           </div>
         </div>

@@ -7,6 +7,7 @@ import SignIn from './auth/SignIn'
 import SignUp from './auth/SignUp'
 import ReservationDetails from './reservations/ReservationDetails'
 import CreateReservation from './reservations/CreateReservation'
+import EditReservation from './reservations/EditReservation'
 
 
 class App extends Component {
@@ -18,6 +19,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={Dashboard}/>
             <Route path='/reservation/:id' component={ReservationDetails} />
+            <Route path='/edit/:id' component={EditReservation} />
             <Route path="/signin" component={SignIn}/>
             <Route path="/signup" component={SignUp}/>
             <Route path="/create" component={CreateReservation}/>

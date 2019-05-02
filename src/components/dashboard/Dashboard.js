@@ -14,6 +14,7 @@ class Dashboard extends Component {
         if (!auth.uid) return <Redirect to="/signin"/>
         return (
             <div className="dashboard container">
+                <h4>Your reservations:</h4>
                 <div className="row">
                     <div className="col s12 m6">
                         <ReservationList reservations={reservations} auth={auth}/>

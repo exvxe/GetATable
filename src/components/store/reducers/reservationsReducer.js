@@ -6,6 +6,8 @@ const reservationReducer = (state = initialState, action) => {
       return state;
     case "CREATE_RESERVATION_ERROR":
       return state;
+    case "CANCEL_RESERVATION":
+      return state;
     default:
         return state
   }
