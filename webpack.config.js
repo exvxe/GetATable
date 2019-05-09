@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: './src/index.js',
+  cache: false,
   module: {
     rules: [
       {
@@ -19,7 +20,10 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['*', '.js', '.jsx']
+    extensions: ['*', '.js', '.jsx'],
+    alias: {
+      'react-redux': path.join(__dirname, '/node_modules/react-redux/dist/react-redux.min')
+    }
   },
   output: {
     path: path.resolve(__dirname, 'dist'),

@@ -24,7 +24,7 @@ class CreateReservation extends Component {
     }
     handleSubmit = (e) => {
         e.preventDefault()
-        if (moment(this.state.time, 'HH:mm', true).isValid()) {
+        if (moment(this.state.time, 'HH:mm', true).isValid() && this.state.time != null) {
             this.setState({
                 timeValid: true
             })
@@ -33,7 +33,7 @@ class CreateReservation extends Component {
                 timeValid: false
             })
         }
-        if (moment(this.state.date, 'YYYY-MM-DD', true).isValid()) {
+        if (moment(this.state.date, 'YYYY-MM-DD', true).isValid() && this.state.date != null) {
             this.setState({
                 dateValid: true
             })
@@ -42,7 +42,7 @@ class CreateReservation extends Component {
                 dateValid: false
             })
         }
-        if (this.state.dateValid == true && this.state.timeValid == true) {
+        if (this.state.dateValid == true && this.state.timeValid == true && this.state.tableId != null) {
             this.props.createReservation(this.state);
             this.props.history.push('/');
         }
@@ -59,7 +59,7 @@ class CreateReservation extends Component {
         return (
         <div className="container">
             <form onSubmit={this.handleSubmit} className="white">
-                <h5 className="grey-text text-darken-3">Create Reservation</h5>
+                <h4 className="grey-text text-darken-3">Create Reservation</h4>
                 <div className="input-field">
                     <label htmlFor="date">Date (YYYY-MM-DD)</label>
                     <input type="text" id="date" onChange={this.handleChange}/>
@@ -82,17 +82,20 @@ class CreateReservation extends Component {
                     <button className="btn pink lighten-1 z-depth-0">Create reservation</button>
                 </div>
             </form>
-
+            <div>
+            
+            <h5 className="grey-text text-darken-3">Select table:</h5>
             <svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
                 <a onClick={this.handleClick} tableid="1">
                     <polyline points="10,10 60,10 60,60 10,60 10,10" fill="black"/>
-                    <text textAnchor="middle" x="35" y="40" fill="white">1</text>
+                    <text textAnchor="middle" x="35" y="35" fill="white" fontSize="0.4em">1(3 seats)</text>
                 </a>
                 <a onClick={this.handleClick} tableid="2">
                     <polyline points="70,10 120,10 120,60 70,60 70,10" fill="black"/>
-                    <text textAnchor="middle" x="95" y="40" fill="white">2</text>
+                    <text textAnchor="middle" x="95" y="35" fill="white" fontSize="0.4em">2(6 seats)</text>
                 </a>
             </svg>
+            </div>
         </div>
         )
     }

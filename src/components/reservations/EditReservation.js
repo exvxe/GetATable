@@ -19,7 +19,7 @@ class EditReservation extends Component {
     }
     handleSubmit = (e) => {
         e.preventDefault()
-        if (moment(this.state.time, 'HH:mm', true).isValid()) {
+        if (moment(this.state.time, 'HH:mm', true).isValid() && this.state.time != null) {
             this.setState({
                 timeValid: true
             })
@@ -28,7 +28,7 @@ class EditReservation extends Component {
                 timeValid: false
             })
         }
-        if (moment(this.state.date, 'YYYY-MM-DD', true).isValid()) {
+        if (moment(this.state.date, 'YYYY-MM-DD', true).isValid() && this.state.date != null) {
             this.setState({
                 dateValid: true
             })
@@ -37,7 +37,7 @@ class EditReservation extends Component {
                 dateValid: false
             })
         }
-        if (this.state.dateValid == true && this.state.timeValid == true) {
+        if (this.state.dateValid == true && this.state.timeValid == true && this.state.tableId != null) {
             let {dateValid, timeValid, ...filteredState} = this.state;
             this.props.editReservation(this.props.id, filteredState)
             this.props.history.push('/');
@@ -81,16 +81,18 @@ class EditReservation extends Component {
                 </div>
             </form>
 
+            <div>
             <svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
                 <a onClick={this.handleClick} tableid="1">
                     <polyline points="10,10 60,10 60,60 10,60 10,10" fill="black"/>
-                    <text textAnchor="middle" x="35" y="40" fill="white">1</text>
+                    <text textAnchor="middle" x="35" y="35" fill="white" fontSize="0.4em">1(3 seats)</text>
                 </a>
                 <a onClick={this.handleClick} tableid="2">
                     <polyline points="70,10 120,10 120,60 70,60 70,10" fill="black"/>
-                    <text textAnchor="middle" x="95" y="40" fill="white">2</text>
+                    <text textAnchor="middle" x="95" y="35" fill="white" fontSize="0.4em">2(6 seats)</text>
                 </a>
             </svg>
+            </div>
         </div>
         )
     }

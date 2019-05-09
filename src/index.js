@@ -11,12 +11,22 @@ import { reduxFirestore, getFirestore } from 'redux-firestore';
 import { reactReduxFirebase, getFirebase } from 'react-redux-firebase';
 import fbConfig from './config/fbConfig';
 
-const store = compose(
-    applyMiddleware(thunk.withExtraArgument({getFirebase, getFirestore})),
-    reactReduxFirebase(fbConfig, {useFirestoreForProfile: true, userProfile: 'users', attachAuthIsReady: true}),
-    reduxFirestore(fbConfig),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-)(createStore)(rootReducer);
+let devTools = window.__REDUX_DEVTOOLS_EXTENSION__ && 
+window.__REDUX_DEVTOOLS_EXTENSION__();
+if (process.env.NODE_ENV === 'prod' || process.env.NODE_ENV === 'production') {
+    devTools = a => a;
+}
+
+const store = createStore(
+    rootReducer,
+    compose(
+      applyMiddleware(thunk.withExtraArgument({getFirebase, getFirestore})),
+      reactReduxFirebase(fbConfig, {userProfile: 'users', useFirestoreForProfile: true, attachAuthIsReady: true}),
+      reduxFirestore(fbConfig),
+      devTools,
+    )
+  );
+
 
 store.firebaseAuthIsReady.then(() => {
     ReactDOM.render(
