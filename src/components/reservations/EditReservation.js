@@ -9,7 +9,8 @@ import moment from 'moment'
 class EditReservation extends Component {
     state = {
         dateValid: true,
-        timeValid: true
+        timeValid: true,
+        error: ''
     }
     handleChange = (e) => {
         this.setState({
@@ -84,6 +85,7 @@ class EditReservation extends Component {
                 </div>
                 <div className="input-field">
                     <button className="btn pink lighten-1 z-depth-0">Save reservation</button>
+                    <span className="red-text">{this.state.error}</span>
                 </div>
             </form>
 

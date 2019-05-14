@@ -87,7 +87,7 @@ class CreateReservation extends Component {
                 </div>
                 <div className="input-field">
                     <button className="btn pink lighten-1 z-depth-0">Create reservation</button>
-                    {<span className="red-text">{this.state.error}</span>}
+                    <span className="red-text">{this.state.error}</span>
                 </div>
             </form>
             <div>
