@@ -15,7 +15,8 @@ class CreateReservation extends Component {
         tableId: null,
         authorId: this.props.auth.uid,
         dateValid: true,
-        timeValid: true
+        timeValid: true,
+        error: ''
     }
     handleChange = (e) => {
         this.setState({
@@ -43,8 +44,14 @@ class CreateReservation extends Component {
             })
         }
         if (this.state.dateValid == true && this.state.timeValid == true && this.state.tableId != null) {
-            this.props.createReservation(this.state);
-            this.props.history.push('/');
+            if(this.props.reservations.find(x => x.tableId == this.state.tableId && x.date == this.state.date && x.time == this.state.time) == null) {
+                this.props.createReservation(this.state);
+                this.props.history.push('/');
+            } else {
+                this.setState({
+                    error: "Data jest zajęta"
+                })
+            }
         }
     }
     handleClick = (e) => {
@@ -80,6 +87,7 @@ class CreateReservation extends Component {
                 </div>
                 <div className="input-field">
                     <button className="btn pink lighten-1 z-depth-0">Create reservation</button>
+                    {<span className="red-text">{this.state.error}</span>}
                 </div>
             </form>
             <div>
@@ -104,7 +112,8 @@ class CreateReservation extends Component {
 const mapStateToProps = (state) => {
     return {
         auth: state.firebase.auth,
-        tables: state.firestore.ordered.tables
+        tables: state.firestore.ordered.tables,
+        reservations: state.firestore.ordered.reservations
     }
 }
 
@@ -116,7 +125,6 @@ const mapDispatchToProps = (dispatch) => {
 
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),
-    firestoreConnect([
-      { collection: 'tables' }
-    ])
+    firestoreConnect([{ collection: 'tables' }]),
+    firestoreConnect([{ collection: 'reservations' }]),
   )(CreateReservation)

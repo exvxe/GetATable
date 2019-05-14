@@ -38,9 +38,15 @@ class EditReservation extends Component {
             })
         }
         if (this.state.dateValid == true && this.state.timeValid == true && this.state.tableId != null) {
-            let {dateValid, timeValid, ...filteredState} = this.state;
-            this.props.editReservation(this.props.id, filteredState)
-            this.props.history.push('/');
+            if(this.props.reservations.find(x => x.tableId == this.state.tableId && x.date == this.state.date && x.time == this.state.time) == null) {
+                let {dateValid, timeValid, ...filteredState} = this.state;
+                this.props.editReservation(this.props.id, filteredState)
+                this.props.history.push('/');
+            } else {
+                this.setState({
+                    error: "Data jest zajęta"
+                })
+            }
         }
     }
     handleClick = (e) => {
